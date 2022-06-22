@@ -3,6 +3,8 @@ var generateBtn = document.querySelector("#generate");
 
 function generatePassword() {
   var passwordLength = prompt("How long do you want your password?");
+  var userChoices = [];
+  var myPassword = [];
   if (passwordLength < 8 || passwordLength > 128 || isNaN(passwordLength)) {
     alert("Entry Invalid! Please try again.");
   } else {
@@ -11,19 +13,64 @@ function generatePassword() {
     var number = confirm("Do you want Numbers?");
     var specialChar = confirm("Do you want Special Characters?");
   }
-  function pickLetter(shouldUpperCase) {
+  if (criteriaCheck()) {
+    for (var i = 0; i < passwordLength; i++) {
+      var currentChoice = userChoices[Math.floor(Math.random() * userChoices.length)];
+      if (currentChoice === "lower") {
+        myPassword.push(pickLetter());
+      }
+      if (currentChoice === "upper") {
+        myPassword.push(pickLetter(true));
+      }
+      if (currentChoice === "number") {
+        myPassword.push(pickNumber());
+      }
+      if (currentChoice === "specialChar") {
+        myPassword.push(pickSpecial());
+      }
+    }
+  } else {
+    alert("Please Choose at least 1 Criteria and try again!");
+  }
+  function pickLetter(x) {
     var alphabet = "abcdefghijklmnopqrstuvwxyz";
     var myLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
-    if (shouldUpperCase) {
+    if (x) {
       return myLetter.toUpperCase();
     } else {
       return myLetter;
     }
-
-
   }
-  console.log(pickLetter());
-  console.log(pickLetter(true));
+  function pickNumber() {
+    var myNumber = Math.floor(Math.random() * 10);
+    return myNumber;
+  }
+  function pickSpecial() {
+    var specialCharacters = ["\\", "!", '\"', "#", "$", "%", "&", "\'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "]", "^", "_", "`", "{", "|", "}", "~"];
+    var mySpecial = specialCharacters[Math.floor(Math.random() * specialCharacters.length)];
+    return mySpecial;
+  }
+  function criteriaCheck() {
+    var wasCriteriaSelected;
+    if (lowerCase) {
+      wasCriteriaSelected = true;
+      userChoices.push("lower");
+    }
+    else if (upperCase) {
+      wasCriteriaSelected = true;
+      userChoices.push("upper");
+    }
+    else if (number) {
+      wasCriteriaSelected = true;
+      userChoices.push("number");
+    }
+    else if (specialChar) {
+      wasCriteriaSelected = true;
+      userChoices.push("specialChar");
+    }
+    return wasCriteriaSelected;
+  }
+  return myPassword.join('');
 }
 
 // Write password to the #password input
