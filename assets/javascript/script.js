@@ -1,6 +1,6 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-
+//This function Generates the Password
 function generatePassword() {
   var passwordLength = prompt("How long do you want your password?");
   var userChoices = [];
@@ -13,6 +13,7 @@ function generatePassword() {
     var number = confirm("Do you want Numbers?");
     var specialChar = confirm("Do you want Special Characters?");
   }
+  //If statment that checks if the user has satisfied the requirements
   if (criteriaCheck()) {
     for (var i = 0; i < passwordLength; i++) {
       var currentChoice = userChoices[Math.floor(Math.random() * userChoices.length)];
@@ -32,6 +33,7 @@ function generatePassword() {
   } else {
     alert("Please Choose at least 1 Criteria and try again!");
   }
+  //Functions that pick characters for password
   function pickLetter(x) {
     var alphabet = "abcdefghijklmnopqrstuvwxyz";
     var myLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
@@ -50,27 +52,30 @@ function generatePassword() {
     var mySpecial = specialCharacters[Math.floor(Math.random() * specialCharacters.length)];
     return mySpecial;
   }
+  //Function that checks which criteria were selected
   function criteriaCheck() {
     var wasCriteriaSelected;
     if (lowerCase) {
       wasCriteriaSelected = true;
       userChoices.push("lower");
     }
-    else if (upperCase) {
+    if (upperCase) {
       wasCriteriaSelected = true;
       userChoices.push("upper");
     }
-    else if (number) {
+    if (number) {
       wasCriteriaSelected = true;
       userChoices.push("number");
     }
-    else if (specialChar) {
+    if (specialChar) {
       wasCriteriaSelected = true;
       userChoices.push("specialChar");
     }
     return wasCriteriaSelected;
   }
+  console.log(myPassword);
   return myPassword.join('');
+
 }
 
 // Write password to the #password input
