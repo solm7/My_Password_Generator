@@ -5,7 +5,7 @@
 create a password generator.
 
 
-## Screenshots
+
 
 ## Authors
 
